@@ -230,21 +230,14 @@
             itemList = new List('items', options, itemData);
         });
 
-        let eventList = null;        
-        var eventData = [];
+        let eventList = null;
         $.getJSON(eventListURL, function(data) {
-
-            $.each(data.incitems, function(index, value) {
-                if (value["price"] > 0) {
-                    eventData.push(value);
-                }
-            });
-        });
-        $.getJSON(eventListExtURL, function(data) {
             var options = {
                 valueNames: ['abr', 'price', 'karmatype'],
                 item: '<tr><td class="abr" scope="row"></td><td class="price"></td><td class="karmatype"></td></tr>'
             };
+
+            var eventData = [];
             $.each(data.incitems, function(index, value) {
                 if (value["price"] > 0) {
                     eventData.push(value);
@@ -253,7 +246,23 @@
 
             eventList = new List('events', options, eventData);
         });
+        let eventListExt = null;
+        $.getJSON(eventListExtURL, function(data) {
+            var options = {
+                valueNames: ['abr', 'price', 'karmatype'],
+                item: '<tr><td class="abr" scope="row"></td><td class="price"></td><td class="karmatype"></td></tr>'
+            };
 
+            var eventData = [];
+            $.each(data.incitems, function(index, value) {
+                if (value["price"] > 0) {
+                    eventData.push(value);
+                }
+            });
+
+            eventListExt = new List('events', options, eventData);
+        });
+        eventList = eventList.concat(eventListExt);
         $("#item-price-min").keyup(function() {
             updateItemFilter();
         });

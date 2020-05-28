@@ -246,23 +246,6 @@
 
             eventList = new List('events', options, eventData);
         });
-        let eventListExt = null;
-        $.getJSON(eventListExtURL, function(data) {
-            var options = {
-                valueNames: ['abr', 'price', 'karmatype'],
-                item: '<tr><td class="abr" scope="row"></td><td class="price"></td><td class="karmatype"></td></tr>'
-            };
-
-            var eventData = [];
-            $.each(data.incitems, function(index, value) {
-                if (value["price"] > 0) {
-                    eventData.push(value);
-                }
-            });
-
-            eventListExt = new List('events', options, eventData);
-        });
-        eventList = eventList.concat(eventListExt);
         $("#item-price-min").keyup(function() {
             updateItemFilter();
         });

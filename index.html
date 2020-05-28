@@ -14,6 +14,7 @@
     <script type="text/javascript">
         const itemListURL = "https://raw.githubusercontent.com/ceashley/ceashley.github.io/master/StoreItems.json";
         const eventListURL = "https://raw.githubusercontent.com/ceashley/ceashley.github.io/master/StoreIncidents.json";
+        const eventListExtURL = "https://raw.githubusercontent.com/ceashley/ceashley.github.io/master/ShopExt.json";
     </script>
 </head>
 
@@ -230,20 +231,26 @@
         });
 
         let eventList = null;
-        $.getJSON(eventListURL, function(data) {
-            var options = {
-                valueNames: ['abr', 'price', 'karmatype'],
-                item: '<tr><td class="abr" scope="row"></td><td class="price"></td><td class="karmatype"></td></tr>'
-            };
-
-            var eventData = [];
+        var eventData = [];
+        $.getJSON(eventListURL, function(data) {            
             $.each(data.incitems, function(index, value) {
                 if (value["price"] > 0) {
                     eventData.push(value);
                 }
             });
+        });
+        $.getJSON(eventListExtURL, function(data) {
+            var options = {
+                valueNames: ['abr', 'price', 'karmatype'],
+                item: '<tr><td class="abr" scope="row"></td><td class="price"></td><td class="karmatype"></td></tr>'
+            };
 
-            eventList = new List('events', options, eventData);
+            $.each(data.incitems, function(index, value) {
+                if (value["price"] > 0) {
+                    eventData.push(value);
+                }
+            });
+            eventList.push('events', options, eventData);
         });
 
         $("#item-price-min").keyup(function() {

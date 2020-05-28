@@ -230,9 +230,10 @@
             itemList = new List('items', options, itemData);
         });
 
-        let eventList = null;
+        let eventList = null;        
         var eventData = [];
-        $.getJSON(eventListURL, function(data) {            
+        $.getJSON(eventListURL, function(data) {
+
             $.each(data.incitems, function(index, value) {
                 if (value["price"] > 0) {
                     eventData.push(value);
@@ -244,13 +245,13 @@
                 valueNames: ['abr', 'price', 'karmatype'],
                 item: '<tr><td class="abr" scope="row"></td><td class="price"></td><td class="karmatype"></td></tr>'
             };
-
             $.each(data.incitems, function(index, value) {
                 if (value["price"] > 0) {
                     eventData.push(value);
                 }
             });
-            eventList = new List('events', options, eventData);
+
+            eventList.push('events', options, eventData);
         });
 
         $("#item-price-min").keyup(function() {

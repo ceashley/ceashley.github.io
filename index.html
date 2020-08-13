@@ -216,8 +216,8 @@
         let itemList = null;
         $.getJSON(itemListURL, function(data) {
             var options = {
-                valueNames: ['abr', 'price', 'category'],
-                item: '<tr><td class="abr" scope="row"></td><td class="price"></td><td class="category"></td></tr>'
+                valueNames: ['abr', 'price', 'category','defname'],
+                item: '<tr><td class="abr" scope="row"></td><td class="price"></td><td class="category"></td><td class="defname"></td></tr>'
             };
 
             var itemData = [];
